@@ -44,8 +44,7 @@
 - **측정 위치**: 한국 서울, 미국 버지니아
 - **조건**: CloudFront 사용 여부에 따라 비교
 
-### 1. 🇺🇸 미국 기준 성능 비교 (Dulles, Virginia / Desktop, Chrome v136, Cable)
----
+## 1. 🇺🇸 미국 기준 성능 비교 (Dulles, Virginia / Desktop, Chrome v136, Cable)
 ### S3 직접 접속
 <img width="702" alt="image" src="https://github.com/user-attachments/assets/b711e592-2939-490e-9203-289b1c239ef3" />
 
@@ -71,8 +70,9 @@
 - FCP, LCP, Start Render 등 렌더링 관련 지표도 1.4초 이상 단축되었습니다.
 - 페이지 용량도 60% 줄어 네트워크 및 로딩 부담이 줄었습니다.
 
-### 2. 한국 기준 성능 비교 (Seoul, Korea / Desktop, Chrome v136, Cable)
 ---
+
+## 2. 한국 기준 성능 비교 (Seoul, Korea / Desktop, Chrome v136, Cable)
 ### S3 직접 접속
 
 <img width="704" alt="image" src="https://github.com/user-attachments/assets/bde5d11e-7e6d-4cc7-a946-512c6994802f" />
@@ -99,8 +99,10 @@
 - **TTFB** 기준 3.1초 → 0.165초로 **18배 이상 개선**되었습니다.
 - 페이지 용량도 약 293KB 감소. gzip 압축이나 정적 리소스 최적화 적용 가능성이 높습니다.
 
-### 3.  국가별 성능 비교 (S3 직접 접근 vs CloudFront)
 ---
+
+## 3.  국가별 성능 비교 (S3 직접 접근 vs CloudFront)
+
 | 항목 | S3 (🇰🇷 한국) | S3 (🇺🇸 미국) | CloudFront (🇰🇷 한국) | CloudFront (🇺🇸 미국) |
 | --- | --- | --- | --- | --- |
 | Time to First Byte | **3.106s** | **1.804s** | **0.165s** | **0.194s** |
@@ -110,8 +112,10 @@
 | Largest Contentful Paint | 3.426s | 2.051s | 0.533s | 0.533s |
 | Page Weight | 486 KB | 486 KB | 193 KB | 193 KB |
 
-### 분석
 ---
+
+## 4. 분석
+
 1️⃣ **S3 직접 접근 시**
 서울 리전에 있는 S3 버킷인데도 미국에서 더 빨랐습니다.
 - TTFB 기준: 미국 1.8초, 한국 3.1초
