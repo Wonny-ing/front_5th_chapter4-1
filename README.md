@@ -47,15 +47,11 @@
 ### 1. 🇺🇸 미국 기준 성능 비교 (Dulles, Virginia / Desktop, Chrome v136, Cable)
 ---
 ### S3 직접 접속
-![image.png](attachment:eab8f260-50e5-4a4c-8d84-317faa5ccf1b:image.png)
-
-![image.png](attachment:2efe5d6f-3652-4727-91e3-ce1a94a19505:image.png)
+<img width="702" alt="image" src="https://github.com/user-attachments/assets/b711e592-2939-490e-9203-289b1c239ef3" />
 
 ### CloudFront 접속
+<img width="705" alt="image" src="https://github.com/user-attachments/assets/be8f2faa-16b9-4065-a162-3c9cd1479bee" />
 
-![image.png](attachment:ecaa20d9-7ff4-48ab-a2a7-6d5702a2ef9e:image.png)
-
-![image.png](attachment:a3f79090-e1ae-47fd-a1c9-387efb2577ee:image.png)
 
 | 지표 | S3 (직접 접속) | CloudFront | 개선 정도 |
 | --- | --- | --- | --- |
@@ -79,15 +75,12 @@
 ---
 ### S3 직접 접속
 
-![image.png](attachment:5ac14e1b-676c-499f-93a0-a8e945a23f4e:image.png)
-
-![image.png](attachment:6dceffa4-72e4-4db2-91c0-21aebd265004:image.png)
+<img width="704" alt="image" src="https://github.com/user-attachments/assets/bde5d11e-7e6d-4cc7-a946-512c6994802f" />
 
 ### CloudFront 접속
 
-![image.png](attachment:1596d6ce-907b-4912-8d12-fc4dec9d3e7b:image.png)
+<img width="707" alt="image" src="https://github.com/user-attachments/assets/4b44c14c-e39b-4a91-ac4e-8d816e00d5c2" />
 
-![image.png](attachment:00811ce9-84ad-450c-9983-e89cc5d50653:image.png)
 
 | 지표 | S3 (직접 접속) | CloudFront | 개선 정도 |
 | --- | --- | --- | --- |
