@@ -5,22 +5,22 @@
 
 ## 주요 개념
 
-- GitHub Actions과 CI/CD 도구
-    - **GitHub Actions**는 GitHub에서 제공하는 자동화 도구로, 코드가 푸시되거나 PR이 머지될 때 특정 작업(워크플로우)을 자동으로 수행할 수 있게 합니다.
-    - **CI/CD**는 Continuous Integration(지속적 통합)과 Continuous Deployment(지속적 배포)를 의미하며, 코드 변경이 생기면 테스트, 빌드, 배포까지 자동으로 이어지게 합니다.
+- **GitHub Actions과 CI/CD 도구**
+    - `GitHub Actions`는 GitHub에서 제공하는 자동화 도구로, 코드가 푸시되거나 PR이 머지될 때 특정 작업(워크플로우)을 자동으로 수행할 수 있게 합니다.
+    - `CI/CD`는 Continuous Integration(지속적 통합)과 Continuous Deployment(지속적 배포)를 의미하며, 코드 변경이 생기면 테스트, 빌드, 배포까지 자동으로 이어지게 합니다.
     - 예를 들어 `.github/workflows/deployment.yml`에 배포 스크립트를 작성해두면, `main` 브랜치에 푸시할 때마다 자동으로 빌드 후 S3/CloudFront에 배포됩니다.
     - 수동 배포에서 발생하는 실수와 반복작업을 줄이고, 일관된 품질과 빠른 배포를 가능하게 합니다.
-- S3와 스토리지
+- **S3와 스토리지**
     - S3 (Simple Storage Service)는 AWS에서 제공하는 객체 스토리지 서비스로, 정적 웹사이트 파일(html, js, css, 이미지 등)을 저장하고 서빙하는 데 적합합니다.
     - Next.js 프로젝트를 `npm run build`로 정적 파일로 변환한 뒤, 해당 결과물(`out/`, `.next/`, `public/` 등)을 S3 버킷에 업로드하여 사용자에게 서비스합니다.
     - S3는 `정적 웹 호스팅` 기능을 제공하므로, 퍼블릭 액세스를 설정하면 웹사이트 도메인처럼 직접 접속할 수 있습니다.
     - S3는 비용이 저렴하고 가용성이 높아 정적 리소스 배포에 매우 유리합니다.
-- CloudFront와 CDN
-    - **CloudFront**는 AWS에서 제공하는 CDN(Content Delivery Network) 서비스입니다. 전 세계 엣지 로케이션에 콘텐츠를 캐싱해두고 사용자에게 더 가까운 서버에서 콘텐츠를 서빙함으로써 지연 시간(Latency)을 줄입니다.
+- **CloudFront와 CDN**
+    - `CloudFront`는 AWS에서 제공하는 CDN(Content Delivery Network) 서비스입니다. 전 세계 엣지 로케이션에 콘텐츠를 캐싱해두고 사용자에게 더 가까운 서버에서 콘텐츠를 서빙함으로써 지연 시간(Latency)을 줄입니다.
     - S3와 CloudFront를 연결해 정적 리소스를 빠르게 전송할 수 있으며, SSL 인증서 및 사용자 정의 도메인을 연결할 수 있는 장점이 있습니다.
     - 특히 한국처럼 S3 버킷이 멀리 떨어져 있는 리전(예: 미국 us-east-1)에 있을 경우, CloudFront를 사용하지 않으면 웹사이트 응답 속도가 느릴 수 있습니다.
     - 글로벌 사용자 대상 서비스에서 필수적으로 사용되며, 성능 최적화 및 보안(HTTPS) 측면에서도 중요합니다.
-- 캐시 무효화(Cache Invalidation)
+- **캐시 무효화(Cache Invalidation)**
     - CloudFront는 콘텐츠를 캐싱하므로, 정적 파일이 변경되더라도 바로 반영되지 않는 문제가 있습니다.
     - 이를 해결하기 위해 배포 후 다음 명령을 사용해 기존 캐시를 무효화합니다.
         
@@ -77,7 +77,7 @@
 
 ## 성능 최적화
 
-### **측정 환경 세팅**
+### 측정 환경 세팅
 
 - **테스트 대상**: AWS S3 정적 웹사이트
 - **도구**: WebPageTest
