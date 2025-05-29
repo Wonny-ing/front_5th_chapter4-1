@@ -33,6 +33,47 @@
 - Repository secret과 환경변수
     - AWS 자격 증명 등 민감한 정보는 코드에 직접 입력하지 않고, GitHub Repository의 **Secrets** 기능을 사용해 관리합니다.
  
+## CICD 플로우
+
+                         ┌────────────┐
+                         │  [GitHub]  │
+                         └────┬───────┘
+                              │ Push / PR 발생
+                              ▼
+            ┌────────────────────────────────┐
+            │   GitHub Actions Workflow 실행  │
+            │  - 코드 체크아웃 (checkout)      │
+            │  - npm ci                      │
+            │  - 빌드 (npm run build 등)      │
+            └────────────┬───────────────────┘
+                         │
+                         ▼
+               ┌────────────────┐
+               │ 빌드된 정적 파일 │
+               └────┬───────────┘
+                    │
+                    ▼
+               ┌────────────┐
+               │  [S3 버킷]   │  ← (서울 리전: ap-northeast-2)
+               └────┬───────┘
+                    │
+         정적 파일 origin 제공
+                    ▼
+              ┌─────────────┐
+              │ [CloudFront]│  ← 글로벌 CDN
+              └────┬────────┘
+                   │
+        지역별 엣지 로케이션 캐싱
+                   ▼
+         ┌────────────────────┐
+         │ 최종 사용자 브라우저    │
+         └────────────────────┘
+
+- GitHub: 코드 소스 관리 및 트리거 역할
+- GitHub Actions: CI/CD 자동화 도구, 코드 빌드 및 배포 수행
+- S3: 정적 파일 저장소
+- CloudFront: 전 세계 엣지 로케이션에서 캐싱하여 빠른 사용자 응답 제공
+- 최종 사용자: 가장 가까운 엣지에서 정적 리소스를 받아 빠르게 웹사이트 이용 가능
 
 ## 성능 최적화
 
@@ -44,7 +85,7 @@
 - **측정 위치**: 한국 서울, 미국 버지니아
 - **조건**: CloudFront 사용 여부에 따라 비교
 
-## 1. 🇺🇸 미국 기준 성능 비교 (Dulles, Virginia / Desktop, Chrome v136, Cable)
+### 1. 🇺🇸 미국 기준 성능 비교 (Dulles, Virginia / Desktop, Chrome v136, Cable)
 ### S3 직접 접속
 <img width="702" alt="image" src="https://github.com/user-attachments/assets/b711e592-2939-490e-9203-289b1c239ef3" />
 
@@ -72,12 +113,12 @@
 
 ---
 
-## 2. 한국 기준 성능 비교 (Seoul, Korea / Desktop, Chrome v136, Cable)
-### S3 직접 접속
+### 2. 한국 기준 성능 비교 (Seoul, Korea / Desktop, Chrome v136, Cable)
+#### S3 직접 접속
 
 <img width="704" alt="image" src="https://github.com/user-attachments/assets/bde5d11e-7e6d-4cc7-a946-512c6994802f" />
 
-### CloudFront 접속
+#### CloudFront 접속
 
 <img width="707" alt="image" src="https://github.com/user-attachments/assets/4b44c14c-e39b-4a91-ac4e-8d816e00d5c2" />
 
@@ -93,7 +134,7 @@
 | Total Blocking Time | 0.000s | 0.000s | 동일 |
 | Page Weight | 486 KB | 193 KB | 🔽 293 KB 감소 |
 
-📌 **요약**
+#### 📌 **요약**
 
 - CloudFront 사용 시, 렌더링 지연 시간이 약 **3초 이상** 감소되었습니다.
 - **TTFB** 기준 3.1초 → 0.165초로 **18배 이상 개선**되었습니다.
@@ -101,7 +142,7 @@
 
 ---
 
-## 3.  국가별 성능 비교 (S3 직접 접근 vs CloudFront)
+#### 3.  국가별 성능 비교 (S3 직접 접근 vs CloudFront)
 
 | 항목 | S3 (🇰🇷 한국) | S3 (🇺🇸 미국) | CloudFront (🇰🇷 한국) | CloudFront (🇺🇸 미국) |
 | --- | --- | --- | --- | --- |
@@ -114,7 +155,7 @@
 
 ---
 
-## 4. 분석
+### 4. 분석
 
 1️⃣ **S3 직접 접근 시**
 서울 리전에 있는 S3 버킷인데도 미국에서 더 빨랐습니다.
